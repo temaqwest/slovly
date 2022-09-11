@@ -1,0 +1,84 @@
+@import "./resets.scss";
+@import "./variables.scss";
+@import "./fonts.scss";
+@import "./mixins.scss";
+
+html {
+  font-size: 1px;
+}
+
+body {
+  font-family: $main-font;
+  font-size: 16rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.2rem;
+  height: 100vh;
+  width: 100%;
+  background-color: $color-white;
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  width: $scrollbar-width;
+  height: $scrollbar-width;
+  border-radius: 8rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: $gray-color-1;
+  border-radius: 8rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 8rem;
+  background: $gray-color-2;
+}
+
+.non-select {
+  user-select: none;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: hidden;
+
+  z-index: 9998;
+
+  background-color: $black-color;
+  opacity: 0.5;
+}
+.modal::after {
+  pointer-events: none;
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $transition-delay ease-in-out;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.list-fade-move,
+.list-fade-enter-active,
+.list-fade-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.list-fade-enter-from,
+.list-fade-leave-to {
+  opacity: 0;
+}
