@@ -1,6 +1,6 @@
 <template>
   <svg class="icon" :style="iconStyle">
-    <use :xlink:href="iconPath" />
+    <use :xlink:href="iconPath" class="icon__use"/>
   </svg>
 </template>
 
@@ -50,5 +50,9 @@ export default defineComponent({
   flex: none;
   width: 24px;
   height: 24px;
+
+  &__use {
+    pointer-events: none;
+  }
 }
 </style>

@@ -10,7 +10,11 @@
     </div>
     <div class="header__logo">SLOVLY</div>
     <div class="header__utils">
-      <AppIcon class="header__utils-icon" name="settings"/>
+      <AppTooltip>
+        <template v-slot:activator="{on, attrs}">
+          <AppIcon class="header__utils-icon" name="settings" v-on="on" v-bind="attrs"/>
+        </template>
+      </AppTooltip>
       <AppIcon class="header__utils-icon" name="statistic"/>
       <AppIcon class="header__utils-icon" name="help"/>
     </div>
@@ -19,6 +23,7 @@
 
 <script lang="ts" setup>
 import AppIcon from "@/components/UI/AppIcon.vue";
+import AppTooltip from "@/components/UI/AppTooltip.vue"
 // interface HeaderProps {
 //
 // }
@@ -38,7 +43,7 @@ import AppIcon from "@/components/UI/AppIcon.vue";
   align-items: center;
   min-height: 65px;
   padding: 0 20px;
-  border-bottom: 1px solid #d3d6da;
+  border-bottom: 1px solid $gray-color-1;
 
   &__burger {
     display: flex;
@@ -47,11 +52,22 @@ import AppIcon from "@/components/UI/AppIcon.vue";
     cursor: pointer;
     width: min-content;
 
+    &:hover {
+      .header__burger-line:first-child {
+        transform: translateX(-3px);
+      }
+
+      .header__burger-line:last-child {
+        transform: translateX(3px);
+      }
+    }
+
     &-line {
       background-color: $black-color;
       width: 20px;
       height: 3px;
       border-radius: 3px;
+      transition: all $transition-delay ease-in;
     }
   }
 

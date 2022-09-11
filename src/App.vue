@@ -5,6 +5,8 @@
 <!--    <router-link to="/about">About</router-link>-->
 <!--  </nav>-->
   <router-view/>
+  <div class="modals" id="modals"></div>
+  <div class="tooltips" id="tooltips"></div>
 </template>
 
 <script lang="ts" setup>
