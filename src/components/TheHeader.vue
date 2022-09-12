@@ -1,29 +1,32 @@
 <template>
   <header class="header">
     <div class="header__menu">
-      <div class="header__burger">
+      <AppButton variant="clear" class="header__burger">
         <div class="header__burger-line"></div>
         <div class="header__burger-line"></div>
         <div class="header__burger-line"></div>
-      </div>
+      </AppButton>
       <nav class="header__nav"></nav>
     </div>
     <div class="header__logo">SLOVLY</div>
     <div class="header__utils">
-      <AppTooltip>
-        <template v-slot:activator="{on, attrs}">
-          <AppIcon class="header__utils-icon" name="settings" v-on="on" v-bind="attrs"/>
-        </template>
-      </AppTooltip>
-      <AppIcon class="header__utils-icon" name="statistic"/>
-      <AppIcon class="header__utils-icon" name="help"/>
+      <AppButton variant="clear">
+        <AppIcon class="header__utils-icon" name="settings" />
+      </AppButton>
+      <AppButton variant="clear">
+        <AppIcon class="header__utils-icon" name="statistic" />
+      </AppButton>
+      <AppButton variant="clear">
+        <AppIcon class="header__utils-icon" name="help" />
+      </AppButton>
     </div>
   </header>
 </template>
 
 <script lang="ts" setup>
-import AppIcon from "@/components/UI/AppIcon.vue";
-import AppTooltip from "@/components/UI/AppTooltip.vue"
+import AppIcon from '@/components/UI/AppIcon.vue'
+// import AppTooltip from '@/components/UI/AppTooltip.vue'
+import AppButton from '@/components/UI/AppButton.vue'
 // interface HeaderProps {
 //
 // }
@@ -49,7 +52,6 @@ import AppTooltip from "@/components/UI/AppTooltip.vue"
     display: flex;
     flex-flow: column nowrap;
     row-gap: 3px;
-    cursor: pointer;
     width: min-content;
 
     &:hover {
@@ -72,7 +74,6 @@ import AppTooltip from "@/components/UI/AppTooltip.vue"
   }
 
   &__nav {
-
   }
 
   &__menu {
@@ -91,11 +92,6 @@ import AppTooltip from "@/components/UI/AppTooltip.vue"
     align-items: center;
     gap: 5px;
     justify-self: end;
-
-    &-icon {
-      cursor: pointer;
-    }
   }
 }
-
 </style>
