@@ -1,0 +1,20 @@
+// - MARK: Overlay fade animation
+
+.overlay-fade {
+  &-enter-active {
+    animation: overlay-fade-animation $transition-delay;
+  }
+
+  &-leave-active {
+    animation: overlay-fade-animation $transition-delay reverse;
+  }
+}
+
+@keyframes overlay-fade-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
