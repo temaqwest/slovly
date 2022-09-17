@@ -48,8 +48,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .icon {
   flex: none;
-  width: 24px;
-  height: 24px;
+  width: 24rem;
+  height: 24rem;
 
   &__use {
     pointer-events: none;

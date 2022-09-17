@@ -7,7 +7,7 @@
         :class="{ 'header__burger--active': isMenuVisible }"
         :aria-expanded="isMenuVisible"
         aria-controls="header__list"
-        @click="toggleBurgerMenu"
+        @click.stop="toggleBurgerMenu"
       >
         <div class="header__burger-line"></div>
         <div class="header__burger-line"></div>
@@ -16,6 +16,7 @@
       <nav
         class="header__nav"
         :class="{ 'header__nav--active': isMenuVisible }"
+        v-click-outside="handleIt"
       >
         <ul class="header__list">
           <li class="header__list-item">1</li>
@@ -25,6 +26,9 @@
           <li class="header__list-item">5</li>
         </ul>
       </nav>
+      <Transition name="overlay-fade">
+        <div class="header__menu-overlay" v-show="isMenuVisible"></div>
+      </Transition>
     </div>
     <div class="header__logo">SLOVLY</div>
     <div class="header__utils">
@@ -52,6 +56,12 @@ const isMenuVisible = ref<boolean>(false)
 function toggleBurgerMenu() {
   isMenuVisible.value = !isMenuVisible.value
 }
+
+function handleIt(e: any) {
+  if (isMenuVisible.value) {
+    isMenuVisible.value = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -63,13 +73,13 @@ function toggleBurgerMenu() {
   grid-template-columns: 1fr 10fr 1fr;
   align-items: center;
   height: $header-height;
-  padding: 0 20px;
-  border-bottom: 1px solid $gray-color-1;
+  padding: 0 20rem;
+  border-bottom: 1rem solid $gray-color-1;
 
   &__burger {
     display: flex;
     flex-flow: column nowrap;
-    row-gap: 3px;
+    row-gap: 3rem;
     width: min-content;
     transition: all $transition-delay ease-in;
 
@@ -91,19 +101,19 @@ function toggleBurgerMenu() {
 
     &:hover:not(.header__burger--active) {
       .header__burger-line:first-child {
-        transform: translateX(-3px);
+        transform: translateX(-3rem);
       }
 
       .header__burger-line:last-child {
-        transform: translateX(3px);
+        transform: translateX(3rem);
       }
     }
 
     &-line {
       background-color: $black-color;
-      width: 20px;
-      height: 3px;
-      border-radius: 3px;
+      width: 20rem;
+      height: 3rem;
+      border-radius: 3rem;
       transition: all $transition-delay ease-in;
     }
   }
@@ -113,6 +123,17 @@ function toggleBurgerMenu() {
     justify-self: start;
   }
 
+  &__menu-overlay {
+    position: fixed;
+    top: $header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    backdrop-filter: blur(3rem);
+  }
+
   &__nav {
     position: fixed;
     top: $header-height;
@@ -120,10 +141,11 @@ function toggleBurgerMenu() {
     left: -30%;
     width: 30%;
     background-color: $color-white;
-    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    box-shadow: 0 3rem 6rem rgb(0 0 0 / 16%), 0 3rem 6rem rgb(0 0 0 / 23%);
     visibility: hidden;
     opacity: 0;
     transition: all $transition-delay-boring ease-out;
+    z-index: 11;
 
     &--active {
       visibility: visible;
@@ -134,9 +156,10 @@ function toggleBurgerMenu() {
 
   &__list {
     list-style: none;
+    user-select: none;
 
     &-item {
-      padding: 10px 15px;
+      padding: 10rem 15rem;
       width: 100%;
       text-align: left;
       transition: background-color $transition-delay ease-in;
@@ -149,17 +172,41 @@ function toggleBurgerMenu() {
   }
 
   &__logo {
-    font-size: 36px;
+    font-size: 36rem;
     text-align: center;
     font-weight: 800;
     letter-spacing: -0.1em;
+    user-select: none;
+    transition: all 0.5s ease-in-out;
+
+    @media (pointer: fine) and (hover: hover) {
+      &:hover {
+        animation: smash-letters 2000ms cubic-bezier(0.06, 0.78, 0.07, 1.67)
+          1.5s;
+      }
+    }
   }
 
   &__utils {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 5rem;
     justify-self: end;
+  }
+}
+
+@keyframes smash-letters {
+  0% {
+    letter-spacing: -0.1em;
+  }
+  60% {
+    letter-spacing: 0.4em;
+  }
+  70% {
+    letter-spacing: -0.15em;
+  }
+  100% {
+    letter-spacing: -0.1em;
   }
 }
 </style>

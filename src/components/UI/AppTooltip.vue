@@ -47,7 +47,7 @@ const events = ref({
 })
 
 function setOffset() {
-  const tipOffset = +props.offset + 'px'
+  const tipOffset = +props.offset + 'rem'
   let tipTransformProp: string
 
   if (props.dir === 'top' || props.dir === 'bottom') {
@@ -72,16 +72,16 @@ watch(tipStyleClasses, setOffset)
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    box-shadow: 0px 2px 4px rgba(175, 175, 175, 0.16);
-    border-radius: 4px;
+    box-shadow: 0rem 2rem 4rem rgba(175, 175, 175, 0.16);
+    border-radius: 4rem;
     color: $black-color;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 14rem;
     font-family: sans-serif;
     white-space: nowrap;
     line-height: 130%;
     display: flex;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.2rem;
     position: absolute;
     text-transform: none;
     z-index: 3;
@@ -95,7 +95,7 @@ watch(tipStyleClasses, setOffset)
     &-arrow {
       position: absolute;
       background-color: transparent;
-      border-width: 6px;
+      border-width: 6rem;
       border-style: solid;
       transition: opacity 0.25s ease-in-out;
       opacity: 1;
@@ -103,51 +103,51 @@ watch(tipStyleClasses, setOffset)
 
     &--direction {
       &-bottom {
-        padding: 6px 10px;
+        padding: 6rem 10rem;
         top: 100%;
         left: 50%;
         transform: translateX(-50%) translateY(var(--tipOffsetY));
         .tooltip__tip-arrow {
           border-color: #ffffff transparent transparent transparent;
-          border-width: 6px 6px 0 6px;
+          border-width: 6rem 6rem 0 6rem;
           bottom: 100%;
           transform: rotate(180deg);
         }
       }
 
       &-top {
-        padding: 6px 10px;
+        padding: 6rem 10rem;
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%) translateY(var(--tipOffsetY));
         .tooltip__tip-arrow {
           border-color: #ffffff transparent transparent transparent;
-          border-width: 6px 6px 0 6px;
+          border-width: 6rem 6rem 0 6rem;
           top: 100%;
         }
       }
 
       &-left {
-        padding: 6px 10px;
+        padding: 6rem 10rem;
         top: 50%;
         right: 100%;
         transform: translateY(-50%);
         .tooltip__tip-arrow {
           border-color: transparent transparent transparent #ffffff;
-          border-width: 6px 0px 6px 6px;
-          right: -6px;
+          border-width: 6rem 0rem 6rem 6rem;
+          right: -6rem;
         }
       }
 
       &-right {
-        padding: 6px 10px;
+        padding: 6rem 10rem;
         top: 50%;
         left: 100%;
         transform: translateY(-50%);
         .tooltip__tip-arrow {
           border-color: transparent #ffffff transparent transparent;
-          border-width: 6px 6px 6px 0px;
-          left: -6px;
+          border-width: 6rem 6rem 6rem 0rem;
+          left: -6rem;
         }
       }
     }

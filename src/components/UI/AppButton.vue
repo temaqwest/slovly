@@ -11,7 +11,7 @@ import {
   ButtonSizes,
   ButtonTypes,
   ButtonVariants
-} from '@/assets/enums'
+} from '@/assets/enums/Button'
 
 interface IButtonProps {
   type?: ButtonTypes
