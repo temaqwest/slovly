@@ -38,6 +38,7 @@ const letterOrWhat = computed(() => {
   color: $black-color;
   border: 1rem solid $gray-color-4;
   user-select: none;
+  text-transform: uppercase;
   transition: transform $transition-delay ease-out,
     border-color $transition-delay ease-out;
 

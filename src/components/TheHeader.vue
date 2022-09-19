@@ -18,12 +18,16 @@
         :class="{ 'header__nav--active': isMenuVisible }"
         v-click-outside="handleIt"
       >
-        <ul class="header__list">
-          <li class="header__list-item">1</li>
-          <li class="header__list-item">2</li>
-          <li class="header__list-item">3</li>
-          <li class="header__list-item">4</li>
-          <li class="header__list-item">5</li>
+        <ul class="header__list" tabindex="1">
+          <li
+            class="header__list-item"
+            v-for="idx in 5"
+            :key="idx"
+            tabindex="0"
+            role="button"
+          >
+            Menu item {{ idx }}
+          </li>
         </ul>
       </nav>
       <Transition name="overlay-fade">
@@ -132,6 +136,7 @@ function handleIt(e: any) {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
     backdrop-filter: blur(3rem);
+    cursor: pointer;
   }
 
   &__nav {
