@@ -18,3 +18,24 @@
     opacity: 1;
   }
 }
+
+// - MARK: twitchy-toggle animation
+
+.twitchy-toggle {
+  &-enter-active {
+    animation: twitchy-toggle-animation $transition-delay cubic-bezier(0.21, 0.77, 0.68, 1.6);
+  }
+
+  &-leave-active {
+    animation: twitchy-toggle-animation $transition-delay cubic-bezier(0.21, 0.77, 0.68, 1.6) reverse;
+  }
+}
+
+@keyframes twitchy-toggle-animation {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}

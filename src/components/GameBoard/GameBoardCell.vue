@@ -2,6 +2,7 @@
   <div
     class="game-cell"
     :class="{
+      'game-cell--spot-filled': letter !== '',
       'game-cell--spot-correct': spot?.isCorrect,
       'game-cell--spot-wrong': spot?.isWrong
     }"
@@ -62,6 +63,21 @@ const letterOrWhat = computed(() => {
     &-wrong {
       color: $color-white;
     }
+
+    &-filled {
+      border-color: $gray-color-2;
+      animation: twinky-filled $transition-delay - 50
+        cubic-bezier(0.21, 0.77, 0.68, 1.6) alternate;
+    }
+  }
+}
+
+@keyframes twinky-filled {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
   }
 }
 </style>

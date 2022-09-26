@@ -9,3 +9,8 @@ export interface LetterSpotStatus {
   isWrong: boolean
   isNone: boolean
 }
+
+export interface BoardPosition {
+  row: number
+  cell: number
+}

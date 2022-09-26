@@ -3,7 +3,7 @@
     ref="boardRef"
     class="board"
     tabindex="0"
-    @keydown="handleKeydown"
+    @keydown="handleInput"
     @focusin="handleBoardFocusIn"
     @blur="handleBoardBlur"
   >
@@ -32,66 +32,28 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
+import { useGameGrid } from '@/hooks/GameGrid'
 
 const boardRef = ref<HTMLDivElement>()
 const isBoardFocused = ref<boolean>(false)
 
-const currentPosition = ref<any>({ row: 0, cell: 0 })
-const wordMatrix = ref<Array<Array<string>>>([
-  ['', '', '', '', ''],
-  ['', '', '', '', ''],
-  ['', '', '', '', ''],
-  ['', '', '', '', ''],
-  ['', '', '', '', '']
-])
-const lettersPreset = 'abcdefghijklmnopqrstuvwxyz'
-
-function handleKeydown(e: KeyboardEvent) {
-  if (e.code === 'Backspace') {
-    if (currentPosition.value.cell === 0 && currentPosition.value.row === 0)
-      return false
-
-    if (currentPosition.value.cell === -1) {
-      currentPosition.value.row -= 1
-      currentPosition.value.cell = 4
-    } else {
-      currentPosition.value.cell -= 1
-      wordMatrix.value[currentPosition.value.row][currentPosition.value.cell] =
-        ''
-    }
-    return false
-  } else {
-    if (currentPosition.value.row === 5) {
-      console.log('Переполнено')
-      return false
-    }
-    if (lettersPreset.includes(e.key.toLowerCase())) {
-      console.log('keydown:', e)
-      wordMatrix.value[currentPosition.value.row][currentPosition.value.cell] =
-        e.key
-
-      if (currentPosition.value.row === 4 && currentPosition.value.cell === 4) {
-        return
-      } else {
-        currentPosition.value.cell += 1
-
-        if (currentPosition.value.cell >= 5) {
-          currentPosition.value.row += 1
-          currentPosition.value.cell = 0
-        }
-      }
-    }
-  }
-}
+const { wordMatrix, handleInput, currentPosition } = useGameGrid({
+  word: '',
+  size: {
+    maxRows: 6,
+    maxCells: 5
+  },
+  wordsPreset: ['ligma', 'souly']
+})
 
 function handleBoardBlur(e: any) {
   isBoardFocused.value = false
-  console.log('Blur: ', e)
+  // console.log('Blur: ', e)
 }
 
 function handleBoardFocusIn(e: any) {
   isBoardFocused.value = true
-  console.log('Focus in: ', e)
+  // console.log('Focus in: ', e)
 }
 </script>
 
