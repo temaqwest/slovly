@@ -29,8 +29,8 @@ const letterOrWhat = computed(() => {
 
 <style lang="scss" scoped>
 .game-cell {
-  width: 65rem;
-  height: 65rem;
+  width: 55rem;
+  height: 55rem;
   display: flex;
   justify-content: center;
   align-items: center;

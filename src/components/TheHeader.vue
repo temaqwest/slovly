@@ -39,7 +39,7 @@
       <AppButton variant="clear" :title="localize('Header.settings')">
         <AppIcon class="header__utils-icon" name="settings" />
       </AppButton>
-      <AppButton variant="clear" :title="localize('Header.statistic')">
+      <AppButton variant="clear" :title="localize('Header.statistics')">
         <AppIcon class="header__utils-icon" name="statistic" />
       </AppButton>
       <AppButton variant="clear" :title="localize('Header.help')">
