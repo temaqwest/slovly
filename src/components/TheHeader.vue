@@ -34,15 +34,15 @@
         <div class="header__menu-overlay" v-show="isMenuVisible"></div>
       </Transition>
     </div>
-    <div class="header__logo">SLOVLY</div>
+    <div class="header__logo">{{ localize('Header.appName') }}</div>
     <div class="header__utils">
-      <AppButton variant="clear">
+      <AppButton variant="clear" :title="localize('Header.settings')">
         <AppIcon class="header__utils-icon" name="settings" />
       </AppButton>
-      <AppButton variant="clear">
+      <AppButton variant="clear" :title="localize('Header.statistic')">
         <AppIcon class="header__utils-icon" name="statistic" />
       </AppButton>
-      <AppButton variant="clear">
+      <AppButton variant="clear" :title="localize('Header.help')">
         <AppIcon class="header__utils-icon" name="help" />
       </AppButton>
     </div>
@@ -54,6 +54,7 @@ import AppIcon from '@/components/UI/AppIcon.vue'
 // import AppTooltip from '@/components/UI/AppTooltip.vue'
 import AppButton from '@/components/UI/AppButton.vue'
 import { ref } from 'vue'
+import { localize } from '@/localization/localize'
 
 const isMenuVisible = ref<boolean>(false)
 
@@ -180,7 +181,7 @@ function handleIt(e: any) {
     font-size: 36rem;
     text-align: center;
     font-weight: 800;
-    letter-spacing: -0.1em;
+    letter-spacing: -0.13em;
     user-select: none;
     transition: all 0.5s ease-in-out;
 
@@ -202,7 +203,7 @@ function handleIt(e: any) {
 
 @keyframes smash-letters {
   0% {
-    letter-spacing: -0.1em;
+    letter-spacing: -0.13em;
   }
   60% {
     letter-spacing: 0.4em;
@@ -211,7 +212,7 @@ function handleIt(e: any) {
     letter-spacing: -0.15em;
   }
   100% {
-    letter-spacing: -0.1em;
+    letter-spacing: -0.13em;
   }
 }
 </style>
