@@ -43,7 +43,7 @@ export function useGameGrid(config: GameGridConfig) {
 
   function handleInput(key: string) {
     const normalizedKey = key.toLowerCase()
-    console.log(normalizedKey)
+
     if (LETTERS_PRESET.includes(normalizedKey)) {
       handleLettersInput(normalizedKey)
     } else if (normalizedKey === 'backspace') {

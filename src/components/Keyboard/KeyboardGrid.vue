@@ -10,9 +10,30 @@
           v-for="cup in row"
           :letter="cup"
           :key="cup"
+          class="keyboard__cup"
           :pressed="pressedKey === cup"
           @click="handlePressedKeycup(cup)"
         />
+      </div>
+      <div class="keyboard__row">
+        <KeyboardCup
+          long
+          class="keyboard__cup"
+          letter="backspace"
+          :pressed="pressedKey.toLowerCase() === 'backspace'"
+          @click="handlePressedKeycup('backspace')"
+        >
+          <AppIcon name="delete" />
+        </KeyboardCup>
+        <KeyboardCup
+          long
+          class="keyboard__cup"
+          letter="enter"
+          :pressed="pressedKey.toLowerCase() === 'enter'"
+          @click="handlePressedKeycup('enter')"
+        >
+          <AppIcon name="enter" />
+        </KeyboardCup>
       </div>
     </div>
   </div>
@@ -22,6 +43,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { localize } from '@/localization/localize'
 import KeyboardCup from '@/components/Keyboard/KeyboardCup.vue'
+import AppIcon from '@/components/UI/AppIcon.vue'
 
 interface KeyboardGridEmits {
   (e: 'pressed', key: string): void
@@ -44,18 +66,12 @@ const keyTimeout = ref()
 const rawKeyboardLayout = localize('Keyboard.layout')
 const keyboardLayout = computed(() => [
   rawKeyboardLayout.slice(0, 10).split(''),
-  [...rawKeyboardLayout.slice(10, 19).split(''), '×'],
-  [...rawKeyboardLayout.slice(19, 26).split(''), '‣']
+  rawKeyboardLayout.slice(10, 19).split(''),
+  rawKeyboardLayout.slice(19, 26).split('')
 ])
 
 function handlePressedKeycup(key: string) {
-  if (key === '×') {
-    emit('pressed', 'backspace')
-  } else if (key === '‣') {
-    emit('pressed', 'enter')
-  } else {
-    emit('pressed', key)
-  }
+  emit('pressed', key)
 }
 
 onMounted(() => {
@@ -84,7 +100,9 @@ onUnmounted(() => {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: center;
     gap: 8rem;
+    width: 100%;
   }
 }
 </style>

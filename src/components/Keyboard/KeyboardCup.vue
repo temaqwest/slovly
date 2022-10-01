@@ -1,21 +1,32 @@
 <template>
   <div
+    v-if="!$slots.default"
     class="key-cup"
     :data-keycode="letter"
-    :class="{ 'key-cup--pressed': pressed }"
+    :class="{ 'key-cup--pressed': pressed, 'key-cup--long': long }"
   >
     {{ letter }}
+  </div>
+  <div
+    v-else
+    class="key-cup"
+    :data-keycode="letter"
+    :class="{ 'key-cup--pressed': pressed, 'key-cup--long': long }"
+  >
+    <slot></slot>
   </div>
 </template>
 
 <script lang="ts" setup>
 interface KeyboardCupProps {
   letter: string
+  long?: boolean
   pressed?: boolean
 }
 
 withDefaults(defineProps<KeyboardCupProps>(), {
-  pressed: false
+  pressed: false,
+  long: false
 })
 </script>
 
@@ -36,6 +47,11 @@ withDefaults(defineProps<KeyboardCupProps>(), {
   user-select: none;
   cursor: pointer;
   transition: all $transition-delay;
+
+  &--long {
+    flex-grow: 1;
+    max-width: 100rem;
+  }
 
   &:hover {
     background-color: $gray-color-6;

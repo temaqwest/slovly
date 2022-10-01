@@ -14,7 +14,6 @@ const pressedKey = ref<{ key: string }>({ key: '' })
 
 function handlePressedKey(key: string) {
   pressedKey.value = { key }
-  console.log(key)
 }
 </script>
 
