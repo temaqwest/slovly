@@ -6,8 +6,7 @@ export enum LetterSpot {
 
 export interface LetterSpotStatus {
   isCorrect: boolean
-  isWrong: boolean
-  isNone: boolean
+  isContains: boolean
 }
 
 export interface BoardPosition {

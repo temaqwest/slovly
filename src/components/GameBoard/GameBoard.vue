@@ -11,6 +11,7 @@
         :data-cell-index="cellIdx"
         v-for="(cell, cellIdx) in row"
         :key="cellIdx"
+        :spot="wordMatrixSpot[rowIdx][cellIdx]"
         :letter="cell"
       />
     </div>
@@ -21,6 +22,7 @@
 import { defineProps, ref, watch } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
 import { useGameGrid } from '@/hooks/GameGrid'
+import { words } from '@/assets/mock/wordsPreset.js'
 
 interface GameBoardProps {
   pressedKey: { key: string }
@@ -30,14 +32,15 @@ const props = defineProps<GameBoardProps>()
 
 const boardRef = ref<HTMLDivElement>()
 
-const { wordMatrix, handleInput, currentPosition } = useGameGrid({
-  word: '',
-  size: {
-    maxRows: 6,
-    maxCells: 5
-  },
-  wordsPreset: ['ligma', 'souly']
-})
+const { wordMatrix, handleInput, currentPosition, wordMatrixSpot, gameIsOver } =
+  useGameGrid({
+    word: 'ligma',
+    size: {
+      maxRows: 6,
+      maxCells: 5
+    },
+    wordsPreset: words
+  })
 
 watch(
   () => props.pressedKey,

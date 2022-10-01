@@ -4,7 +4,7 @@
     :class="{
       'game-cell--spot-filled': letter !== '',
       'game-cell--spot-correct': spot?.isCorrect,
-      'game-cell--spot-wrong': spot?.isWrong
+      'game-cell--spot-contains': spot?.isContains
     }"
   >
     {{ letterOrWhat }}
@@ -54,13 +54,13 @@ const letterOrWhat = computed(() => {
       background-color: $green-color-2;
     }
 
-    &-wrong {
+    &-contains {
       border-color: $orange-color-2;
       background-color: $orange-color-2;
     }
 
     &-correct,
-    &-wrong {
+    &-contains {
       color: $color-white;
     }
 

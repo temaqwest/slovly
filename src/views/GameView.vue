@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import GameBoard from '@/components/GameBoard/GameBoard'
+import GameBoard from '@/components/GameBoard/GameBoard.vue'
 import KeyboardGrid from '@/components/Keyboard/KeyboardGrid.vue'
 import { ref } from 'vue'
 
