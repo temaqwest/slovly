@@ -10,6 +10,7 @@
           v-for="cup in row"
           :letter="cup"
           :key="cup"
+          :pressed="pressedKey === cup"
           @click="handlePressedKeycup(cup)"
         />
       </div>
@@ -18,21 +19,27 @@
 </template>
 
 <script lang="ts" setup>
-// interface KeyboardGridProps {}
-// interface KeyboardGridEmits {}
-//
-// const props = defineProps<KeyboardGridProps>()
-// const emit = defineEmits<KeyboardGridEmits>()
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { localize } from '@/localization/localize'
 import KeyboardCup from '@/components/Keyboard/KeyboardCup.vue'
 
+interface KeyboardGridEmits {
+  (e: 'pressed', key: string): void
+}
+
+const emit = defineEmits<KeyboardGridEmits>()
+
+const pressedKey = ref<string>('')
+
 const keydownListener = (event: KeyboardEvent) => {
-  console.log('down')
+  pressedKey.value = event.key
+  emit('pressed', pressedKey.value)
+  keyTimeout.value = setTimeout(() => {
+    pressedKey.value = ''
+  }, 100)
 }
-const keyupListener = (event: KeyboardEvent) => {
-  console.log('up')
-}
+
+const keyTimeout = ref()
 
 const rawKeyboardLayout = localize('Keyboard.layout')
 const keyboardLayout = computed(() => [
@@ -42,17 +49,22 @@ const keyboardLayout = computed(() => [
 ])
 
 function handlePressedKeycup(key: string) {
-  console.log(key)
+  if (key === '×') {
+    emit('pressed', 'backspace')
+  } else if (key === '‣') {
+    emit('pressed', 'enter')
+  } else {
+    emit('pressed', key)
+  }
 }
 
 onMounted(() => {
   window.addEventListener('keydown', keydownListener)
-  window.addEventListener('keydown', keyupListener)
 })
 
 onUnmounted(() => {
   window.removeEventListener('keypress', keydownListener)
-  window.removeEventListener('keypress', keyupListener)
+  clearTimeout(keyTimeout.value)
 })
 </script>
 

@@ -1,17 +1,5 @@
 <template>
-  <div
-    ref="boardRef"
-    class="board"
-    tabindex="0"
-    @keydown="handleInput"
-    @focusin="handleBoardFocusIn"
-    @blur="handleBoardBlur"
-  >
-    <Transition name="overlay-fade">
-      <div class="board__overlay" v-if="!isBoardFocused">
-        <div class="board__overlay-text">Click to focus</div>
-      </div>
-    </Transition>
+  <div ref="boardRef" class="board">
     <div
       class="board__row"
       v-for="(row, rowIdx) in wordMatrix"
@@ -30,12 +18,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
 import { useGameGrid } from '@/hooks/GameGrid'
 
+interface GameBoardProps {
+  pressedKey: { key: string }
+}
+
+const props = defineProps<GameBoardProps>()
+
 const boardRef = ref<HTMLDivElement>()
-const isBoardFocused = ref<boolean>(false)
 
 const { wordMatrix, handleInput, currentPosition } = useGameGrid({
   word: '',
@@ -46,15 +39,12 @@ const { wordMatrix, handleInput, currentPosition } = useGameGrid({
   wordsPreset: ['ligma', 'souly']
 })
 
-function handleBoardBlur(e: any) {
-  isBoardFocused.value = false
-  // console.log('Blur: ', e)
-}
-
-function handleBoardFocusIn(e: any) {
-  isBoardFocused.value = true
-  // console.log('Focus in: ', e)
-}
+watch(
+  () => props.pressedKey,
+  () => {
+    handleInput(props.pressedKey.key)
+  }
+)
 </script>
 
 <style lang="scss" scoped>

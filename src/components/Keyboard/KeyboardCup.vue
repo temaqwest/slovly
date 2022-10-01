@@ -1,5 +1,9 @@
 <template>
-  <div class="key-cup" :data-keycode="letter">
+  <div
+    class="key-cup"
+    :data-keycode="letter"
+    :class="{ 'key-cup--pressed': pressed }"
+  >
     {{ letter }}
   </div>
 </template>
@@ -37,7 +41,8 @@ withDefaults(defineProps<KeyboardCupProps>(), {
     background-color: $gray-color-6;
   }
 
-  &:active {
+  &:active,
+  &--pressed {
     -webkit-animation: pulse 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
     animation: pulse 0.1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   }

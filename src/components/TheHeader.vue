@@ -51,7 +51,6 @@
 
 <script lang="ts" setup>
 import AppIcon from '@/components/UI/AppIcon.vue'
-// import AppTooltip from '@/components/UI/AppTooltip.vue'
 import AppButton from '@/components/UI/AppButton.vue'
 import { ref } from 'vue'
 import { localize } from '@/localization/localize'
