@@ -106,6 +106,7 @@ watch(
     display: flex;
     align-items: center;
     gap: 5rem;
+    perspective: 600px;
   }
 
   &__cell {

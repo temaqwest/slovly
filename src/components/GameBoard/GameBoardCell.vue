@@ -40,8 +40,10 @@ const letterOrWhat = computed(() => {
   border: 1rem solid $gray-color-4;
   user-select: none;
   text-transform: uppercase;
+  transform-style: preserve-3d;
   transition: transform $transition-delay ease-out,
-    border-color $transition-delay ease-out;
+    border-color $transition-delay ease-out,
+    background-color $transition-delay-boring ease-out;
 
   &:hover {
     transform: scale(0.95);
@@ -62,6 +64,7 @@ const letterOrWhat = computed(() => {
     &-correct,
     &-contains {
       color: $color-white;
+      animation: rotate-cell $transition-delay-boring ease-out alternate !important;
     }
 
     &-filled {
@@ -78,6 +81,15 @@ const letterOrWhat = computed(() => {
   }
   to {
     transform: scale(1.1);
+  }
+}
+
+@keyframes rotate-cell {
+  from {
+    transform: rotateX(0);
+  }
+  to {
+    transform: rotateX(360deg);
   }
 }
 </style>
