@@ -39,3 +39,29 @@
     transform: scale(1);
   }
 }
+
+
+// - MARK: toggle-dialog animation
+
+.toggle-dialog {
+  &-enter-active {
+    animation: toggle-dialog-animation $transition-delay-boring cubic-bezier(0.21, 0.77, 0.68, 1.6);
+  }
+
+  &-leave-active {
+    animation: toggle-dialog-animation $transition-delay-boring cubic-bezier(0.21, 0.77, 0.68, 1.6) reverse;
+  }
+}
+
+@keyframes toggle-dialog-animation {
+  from {
+    opacity: 0;
+    transform: translateY(100rem);
+    filter: blur(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

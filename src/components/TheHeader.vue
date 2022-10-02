@@ -43,19 +43,30 @@
         <AppIcon class="header__utils-icon" name="statistic" />
       </AppButton>
       <AppButton variant="clear" :title="localize('Header.help')">
-        <AppIcon class="header__utils-icon" name="help" />
+        <AppIcon
+          class="header__utils-icon"
+          name="help"
+          @click="isHelpModalVisible = !isHelpModalVisible"
+        />
       </AppButton>
     </div>
+    <AppDialog
+      :title="localize('Header.help')"
+      v-model:show="isHelpModalVisible"
+    >
+    </AppDialog>
   </header>
 </template>
 
 <script lang="ts" setup>
 import AppIcon from '@/components/UI/AppIcon.vue'
+import AppDialog from '@/components/UI/AppDialog.vue'
 import AppButton from '@/components/UI/AppButton.vue'
 import { ref } from 'vue'
 import { localize } from '@/localization/localize'
 
 const isMenuVisible = ref<boolean>(false)
+const isHelpModalVisible = ref<boolean>(false)
 
 function toggleBurgerMenu() {
   isMenuVisible.value = !isMenuVisible.value
