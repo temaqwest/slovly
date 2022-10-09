@@ -1,7 +1,7 @@
 <template>
   <div class="game-view">
     <GameBoard :pressed-key="pressedKey" />
-    <KeyboardGrid @pressed="handlePressedKey" />
+    <KeyboardGrid @pressed="passPressedKeyToGameBoard" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { ref } from 'vue'
 
 const pressedKey = ref<{ key: string }>({ key: '' })
 
-function handlePressedKey(key: string) {
+function passPressedKeyToGameBoard(key: string) {
   pressedKey.value = { key }
 }
 </script>

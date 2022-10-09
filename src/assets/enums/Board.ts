@@ -1,6 +1,6 @@
 export enum LetterSpot {
   none,
-  wrong,
+  contains,
   correct
 }
 

@@ -36,24 +36,56 @@
     </div>
     <div class="header__logo">{{ localize('Header.appName') }}</div>
     <div class="header__utils">
-      <AppButton variant="clear" :title="localize('Header.settings')">
-        <AppIcon class="header__utils-icon" name="settings" />
-      </AppButton>
-      <AppButton variant="clear" :title="localize('Header.statistics')">
-        <AppIcon class="header__utils-icon" name="statistic" />
-      </AppButton>
-      <AppButton variant="clear" :title="localize('Header.help')">
-        <AppIcon
-          class="header__utils-icon"
-          name="help"
-          @click="isHelpModalVisible = !isHelpModalVisible"
-        />
-      </AppButton>
+      <AppTooltip :text="localize('Header.settings')" dir="bottom" offset="10">
+        <template v-slot:activator="{ on, attrs }">
+          <AppButton
+            v-on="on"
+            v-bind="attrs"
+            variant="clear"
+            class="header__utils-button"
+          >
+            <AppIcon class="header__utils-icon" name="settings" />
+          </AppButton>
+        </template>
+      </AppTooltip>
+      <AppTooltip
+        :text="localize('Header.statistics')"
+        dir="bottom"
+        offset="10"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <AppButton
+            v-on="on"
+            v-bind="attrs"
+            variant="clear"
+            class="header__utils-button"
+          >
+            <AppIcon class="header__utils-icon" name="statistic" />
+          </AppButton>
+        </template>
+      </AppTooltip>
+      <AppTooltip :text="localize('Header.help')" dir="bottom" offset="10">
+        <template v-slot:activator="{ on, attrs }">
+          <AppButton
+            v-on="on"
+            v-bind="attrs"
+            variant="clear"
+            class="header__utils-button"
+          >
+            <AppIcon
+              class="header__utils-icon"
+              name="help"
+              @click="isHelpModalVisible = !isHelpModalVisible"
+            />
+          </AppButton>
+        </template>
+      </AppTooltip>
     </div>
     <AppDialog
       :title="localize('Header.help')"
       v-model:show="isHelpModalVisible"
     >
+      <HelpDialog />
     </AppDialog>
   </header>
 </template>
@@ -64,6 +96,8 @@ import AppDialog from '@/components/UI/AppDialog.vue'
 import AppButton from '@/components/UI/AppButton.vue'
 import { ref } from 'vue'
 import { localize } from '@/localization/localize'
+import HelpDialog from '@/components/CustomDialogly/HelpDialog.vue'
+import AppTooltip from '@/components/UI/AppTooltip.vue'
 
 const isMenuVisible = ref<boolean>(false)
 const isHelpModalVisible = ref<boolean>(false)
@@ -208,6 +242,12 @@ function handleIt(e: any) {
     align-items: center;
     gap: 5rem;
     justify-self: end;
+
+    &-button {
+      &:hover {
+        color: $orange-color-2;
+      }
+    }
   }
 }
 

@@ -72,7 +72,7 @@ watch(tipStyleClasses, setOffset)
     align-items: center;
     justify-content: center;
     background-color: #ffffff;
-    box-shadow: 0rem 2rem 4rem rgba(175, 175, 175, 0.16);
+    box-shadow: 0 2rem 10rem rgba(115, 115, 115, 0.66);
     border-radius: 4rem;
     color: $black-color;
     font-weight: 400;
