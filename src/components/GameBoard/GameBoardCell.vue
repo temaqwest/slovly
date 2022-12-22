@@ -4,8 +4,11 @@
     :class="{
       'game-cell--spot-filled': letter !== '',
       'game-cell--spot-correct': spot?.isCorrect,
-      'game-cell--spot-contains': spot?.isContains
+      'game-cell--spot-contains': spot?.isContains,
+      'game-cell--clicked': isClicked
     }"
+    @click="onClick"
+    @animationend="onAnimationEnd"
   >
     {{ letterOrWhat }}
   </div>
@@ -13,7 +16,7 @@
 
 <script lang="ts" setup>
 import { LetterSpotStatus } from '@/assets/enums/Board'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 interface IProps {
   letter?: string
@@ -25,6 +28,16 @@ const props = defineProps<IProps>()
 const letterOrWhat = computed(() => {
   return props.letter ? props.letter : ''
 })
+
+const isClicked = ref<boolean>(false)
+
+function onClick() {
+  isClicked.value = true
+}
+
+function onAnimationEnd() {
+  isClicked.value = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,8 +59,11 @@ const letterOrWhat = computed(() => {
     background-color $transition-delay-boring ease-out;
 
   &:hover {
-    transform: scale(0.95);
     border-color: $gray-color-3;
+  }
+
+  &--clicked {
+    animation: cell-clicked $transition-delay-boring ease-out alternate !important;
   }
 
   &--spot {
@@ -61,16 +77,16 @@ const letterOrWhat = computed(() => {
       background-color: $orange-color-2;
     }
 
-    &-correct,
-    &-contains {
-      color: $color-white;
-      animation: rotate-cell $transition-delay-boring ease-out alternate !important;
-    }
-
     &-filled {
       border-color: $gray-color-2;
       animation: twinky-filled $transition-delay - 50
         cubic-bezier(0.21, 0.77, 0.68, 1.6) alternate;
+    }
+
+    &-correct,
+    &-contains {
+      color: $color-white;
+      animation: rotate-cell $transition-delay-boring ease-out alternate;
     }
   }
 }
@@ -81,6 +97,15 @@ const letterOrWhat = computed(() => {
   }
   to {
     transform: scale(1.1);
+  }
+}
+
+@keyframes cell-clicked {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(360deg);
   }
 }
 

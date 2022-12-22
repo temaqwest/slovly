@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip" :class="{ 'tooltip--active': isMouseOver && !isHidden }">
+  <div class="tooltip" :class="{ 'tooltip--active': isMouseOver }">
     <slot :on="events" :attrs="attrs" name="activator" />
     <div :class="tipStyleClasses" ref="tipRef">
       <div class="tooltip__tip-arrow" v-if="arrow" />

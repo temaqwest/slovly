@@ -2,5 +2,6 @@ export default {
   appName: 'СЛОВЛИ',
   settings: 'Настройки',
   statistics: 'Статистика',
-  help: 'Помощь'
+  help: 'Помощь',
+  theme: 'Сменить тему'
 }

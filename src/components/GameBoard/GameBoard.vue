@@ -22,7 +22,7 @@
 import { defineProps, ref, watch } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
 import { useGameGrid } from '@/hooks/GameGrid'
-import { words } from '@/assets/mock/wordsPreset.js'
+import { words } from '../../assets/mock/wordsPreset.js'
 
 interface GameBoardProps {
   pressedKey: { key: string }
@@ -32,15 +32,21 @@ const props = defineProps<GameBoardProps>()
 
 const boardRef = ref<HTMLDivElement>()
 
-const { wordMatrix, handleInput, currentPosition, wordMatrixSpot, gameIsOver } =
-  useGameGrid({
-    word: 'ligma',
-    size: {
-      maxRows: 6,
-      maxCells: 5
-    },
-    wordsPreset: words
-  })
+const {
+  wordMatrix,
+  handleInput,
+  currentPosition,
+  wordMatrixSpot,
+  gameIsOver,
+  matchedWord
+} = useGameGrid({
+  word: 'ligma',
+  size: {
+    maxRows: 6,
+    maxCells: 5
+  },
+  wordsPreset: words
+})
 
 watch(
   () => props.pressedKey,

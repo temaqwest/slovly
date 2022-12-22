@@ -20,6 +20,8 @@ export function useGameGrid(config: GameGridConfig) {
   const currentPosition = ref<BoardPosition>({ row: 0, cell: 0 })
   const alreadyGuessedWords = ref<Array<string>>([])
   const gameIsOver = ref(false)
+  const matchedWord = ref(false)
+  const notMatched = ref(false)
 
   const isCursorOnStart = computed(() => currentPosition.value.cell === 0)
   const isCursorOnEnd = computed(
@@ -107,6 +109,8 @@ export function useGameGrid(config: GameGridConfig) {
         currentPosition.value.row += 1
         currentPosition.value.cell = 0
         console.log('match word')
+        matchedWord.value = true
+        setTimeout(() => (matchedWord.value = false), 1000)
       } else {
         checkIfWordContainsUsefulLetters(rowWord)
         gameIsOver.value = true
@@ -154,8 +158,9 @@ export function useGameGrid(config: GameGridConfig) {
   buildGrid()
 
   return {
-    gameIsOver,
     wordMatrix,
+    gameIsOver,
+    matchedWord,
     wordMatrixSpot,
     currentPosition,
     handleInput

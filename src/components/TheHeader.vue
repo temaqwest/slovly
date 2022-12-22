@@ -36,6 +36,18 @@
     </div>
     <div class="header__logo">{{ localize('Header.appName') }}</div>
     <div class="header__utils">
+      <AppTooltip :text="localize('Header.theme')" dir="bottom" offset="10">
+        <template v-slot:activator="{ on, attrs }">
+          <AppButton
+            v-on="on"
+            v-bind="attrs"
+            variant="clear"
+            class="header__utils-button"
+          >
+            <AppIcon class="header__utils-icon" name="theme" />
+          </AppButton>
+        </template>
+      </AppTooltip>
       <AppTooltip :text="localize('Header.settings')" dir="bottom" offset="10">
         <template v-slot:activator="{ on, attrs }">
           <AppButton
@@ -71,12 +83,9 @@
             v-bind="attrs"
             variant="clear"
             class="header__utils-button"
+            @click="isHelpModalVisible = !isHelpModalVisible"
           >
-            <AppIcon
-              class="header__utils-icon"
-              name="help"
-              @click="isHelpModalVisible = !isHelpModalVisible"
-            />
+            <AppIcon class="header__utils-icon" name="help" />
           </AppButton>
         </template>
       </AppTooltip>
