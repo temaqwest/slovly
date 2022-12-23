@@ -43,6 +43,7 @@
             v-bind="attrs"
             variant="clear"
             class="header__utils-button"
+            @click="toggleTheme"
           >
             <AppIcon class="header__utils-icon" name="theme" />
           </AppButton>
@@ -107,7 +108,10 @@ import { ref } from 'vue'
 import { localize } from '@/localization/localize'
 import HelpDialog from '@/components/CustomDialogly/HelpDialog.vue'
 import AppTooltip from '@/components/UI/AppTooltip.vue'
+import { useMainStore } from '@/store/mainStore'
+import { Theme } from '@/assets/enums/Theme'
 
+const mainStore = useMainStore()
 const isMenuVisible = ref<boolean>(false)
 const isHelpModalVisible = ref<boolean>(false)
 
@@ -120,10 +124,17 @@ function handleIt(e: any) {
     isMenuVisible.value = false
   }
 }
+
+function toggleTheme() {
+  const currentTheme = mainStore.getCurrentTheme
+
+  const newTheme = currentTheme === Theme.black ? Theme.light : Theme.black
+
+  mainStore.setCurrentTheme(newTheme)
+}
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
 .header {
   font-family: 'Oswald', sans-serif;
   width: 100%;
@@ -133,6 +144,7 @@ function handleIt(e: any) {
   height: $header-height;
   padding: 0 20rem;
   border-bottom: 1rem solid $gray-color-1;
+  background-color: var(--color-white);
 
   &__burger {
     display: flex;
@@ -168,7 +180,7 @@ function handleIt(e: any) {
     }
 
     &-line {
-      background-color: $black-color;
+      background-color: var(--black-color);
       width: 20rem;
       height: 3rem;
       border-radius: 3rem;
@@ -199,7 +211,7 @@ function handleIt(e: any) {
     bottom: 0;
     left: -30%;
     width: 30%;
-    background-color: $color-white;
+    background-color: var(--color-white);
     box-shadow: 0 3rem 6rem rgb(0 0 0 / 16%), 0 3rem 6rem rgb(0 0 0 / 23%);
     visibility: hidden;
     opacity: 0;
@@ -223,9 +235,10 @@ function handleIt(e: any) {
       text-align: left;
       transition: background-color $transition-delay ease-in;
       cursor: pointer;
+      color: var(--black-color);
 
       &:hover {
-        background-color: $gray-color-1;
+        background-color: var(--header-item--hover);
       }
     }
   }
@@ -237,6 +250,7 @@ function handleIt(e: any) {
     letter-spacing: -0.13em;
     user-select: none;
     transition: all 0.5s ease-in-out;
+    color: var(--black-color);
 
     @media (pointer: fine) and (hover: hover) {
       &:hover {
@@ -253,6 +267,7 @@ function handleIt(e: any) {
     justify-self: end;
 
     &-button {
+      color: var(--black-color);
       &:hover {
         color: $orange-color-2;
       }
@@ -272,6 +287,14 @@ function handleIt(e: any) {
   }
   100% {
     letter-spacing: -0.13em;
+  }
+}
+
+@media (max-width: $mobile-m) {
+  .header {
+    &__nav {
+      width: 100%;
+    }
   }
 }
 </style>

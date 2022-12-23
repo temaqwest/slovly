@@ -105,4 +105,16 @@ onUnmounted(() => {
     width: 100%;
   }
 }
+
+@media (max-width: $mobile-m) {
+  .keyboard {
+    &__row {
+      gap: 4rem;
+    }
+
+    &__grid {
+      gap: 10rem;
+    }
+  }
+}
 </style>

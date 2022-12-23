@@ -79,7 +79,7 @@ onMounted(() => {
     max-width: 600rem;
     min-height: 200rem;
     width: 100%;
-    background-color: $color-white;
+    background-color: var(--color-white);
     border: 1rem solid $gray-color-4;
     border-radius: 8rem;
     display: flex;
@@ -95,12 +95,17 @@ onMounted(() => {
     padding: 15rem 20rem;
     width: 100%;
     user-select: none;
+
+    &-title {
+      color: var(--black-color);
+    }
   }
 
   &__close-button.app-button {
     position: absolute;
     top: 20rem;
     right: 20rem;
+    color: var(--black-color);
 
     &:hover {
       color: $red-color-2;

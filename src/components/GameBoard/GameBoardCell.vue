@@ -49,7 +49,7 @@ function onAnimationEnd() {
   align-items: center;
   font-size: 35rem;
   font-weight: 900;
-  color: $black-color;
+  color: var(--black-color);
   border: 1rem solid $gray-color-4;
   user-select: none;
   text-transform: uppercase;
@@ -85,7 +85,7 @@ function onAnimationEnd() {
 
     &-correct,
     &-contains {
-      color: $color-white;
+      color: var(--color-white);
       animation: rotate-cell $transition-delay-boring ease-out alternate;
     }
   }
@@ -115,6 +115,13 @@ function onAnimationEnd() {
   }
   to {
     transform: rotateX(360deg);
+  }
+}
+
+@media (max-width: $mobile-m) {
+  .game-cell {
+    width: 50px;
+    height: 50px;
   }
 }
 </style>

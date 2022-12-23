@@ -97,8 +97,8 @@ watch(
     &-text {
       border-radius: 5rem;
       font-weight: 500;
-      background-color: $color-white;
-      color: $black-color;
+      background-color: var(--color-white);
+      color: var(--black-color);
       font-size: 20rem;
       text-align: center;
       padding: 8px 30px;
@@ -116,6 +116,12 @@ watch(
   }
 
   &__cell {
+  }
+}
+
+@media (max-width: $mobile-m) {
+  .board {
+    margin: 20rem auto 20rem auto;
   }
 }
 </style>

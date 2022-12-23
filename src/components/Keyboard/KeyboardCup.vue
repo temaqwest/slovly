@@ -38,11 +38,11 @@ withDefaults(defineProps<KeyboardCupProps>(), {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1rem solid $black-color;
-  box-shadow: 0 4rem 0 0 $black-color;
+  border: 1rem solid var(--black-color);
+  box-shadow: 0 4rem 0 0 var(--black-color);
   border-radius: 5rem;
-  color: $black-color;
-  background-color: $color-white;
+  color: var(--black-color);
+  background-color: var(--color-white);
   text-transform: uppercase;
   user-select: none;
   cursor: pointer;
@@ -54,7 +54,7 @@ withDefaults(defineProps<KeyboardCupProps>(), {
   }
 
   &:hover {
-    background-color: $gray-color-6;
+    background-color: var(--keycup--hover);
   }
 
   &:active,
@@ -70,10 +70,20 @@ withDefaults(defineProps<KeyboardCupProps>(), {
     background: linear-gradient(
       353deg,
       rgba(177, 177, 177, 1) 0%,
-      rgba(245, 246, 247, 1) 100%
+      rgba(245, 246, 247, 0.1) 100%
     );
     transform: translate(0, 0.2em) scale(0.99);
-    box-shadow: 0 0 0 0 $black-color;
+    box-shadow: 0 0 0 0 var(--black-color);
+  }
+}
+
+@media (max-width: $mobile-m) {
+  .key-cup {
+    width: 32px;
+    height: 40px;
+    font-size: 22px;
+    border-radius: 3px;
+    box-shadow: none;
   }
 }
 </style>

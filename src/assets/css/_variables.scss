@@ -55,3 +55,21 @@ $transition-delay: 200ms;
 $transition-delay-boring: .4s;
 $transition-button-active: 0.2s;
 
+$mobile-l: 450px;
+$mobile-m: 400px;
+
+:root {
+    --color-white: #ffffff;
+    --black-color: #181818;
+    --keycup--hover: #EDEDED;
+    --header-item--hover: #d3d6da;
+}
+
+.theme {
+    &--black {
+        --color-white: #181818;
+        --black-color: #ffffff;
+        --keycup--hover: #313131;
+        --header-item--hover: #464748;
+    }
+}

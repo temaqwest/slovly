@@ -115,6 +115,7 @@ const wordThreeSpot = ref<Array<LetterSpotStatus>>([
     font-size: 16rem;
     line-height: 130%;
     margin-bottom: 8rem;
+    color: var(--black-color);
 
     &--bold {
       font-weight: bold;
@@ -125,6 +126,7 @@ const wordThreeSpot = ref<Array<LetterSpotStatus>>([
     font-size: 19rem;
     font-weight: 400;
     text-align: left;
+    color: var(--black-color);
   }
 
   &__divider {

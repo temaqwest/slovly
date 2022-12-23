@@ -71,10 +71,10 @@ watch(tipStyleClasses, setOffset)
   &__tip {
     align-items: center;
     justify-content: center;
-    background-color: #ffffff;
+    background-color: var(--color-white);
     box-shadow: 0 2rem 10rem rgba(115, 115, 115, 0.66);
     border-radius: 4rem;
-    color: $black-color;
+    color: var(--black-color);
     font-weight: 400;
     font-size: 14rem;
     font-family: sans-serif;
@@ -84,7 +84,7 @@ watch(tipStyleClasses, setOffset)
     letter-spacing: 0.2rem;
     position: absolute;
     text-transform: none;
-    z-index: 3;
+    z-index: 10;
     text-align: center;
     width: max-content;
     box-sizing: border-box;
@@ -108,7 +108,7 @@ watch(tipStyleClasses, setOffset)
         left: 50%;
         transform: translateX(-50%) translateY(var(--tipOffsetY));
         .tooltip__tip-arrow {
-          border-color: #ffffff transparent transparent transparent;
+          border-color: var(--color-white) transparent transparent transparent;
           border-width: 6rem 6rem 0 6rem;
           bottom: 100%;
           transform: rotate(180deg);
@@ -121,7 +121,7 @@ watch(tipStyleClasses, setOffset)
         left: 50%;
         transform: translateX(-50%) translateY(var(--tipOffsetY));
         .tooltip__tip-arrow {
-          border-color: #ffffff transparent transparent transparent;
+          border-color: var(--color-white) transparent transparent transparent;
           border-width: 6rem 6rem 0 6rem;
           top: 100%;
         }
@@ -133,7 +133,7 @@ watch(tipStyleClasses, setOffset)
         right: 100%;
         transform: translateY(-50%);
         .tooltip__tip-arrow {
-          border-color: transparent transparent transparent #ffffff;
+          border-color: transparent transparent transparent var(--color-white);
           border-width: 6rem 0rem 6rem 6rem;
           right: -6rem;
         }
@@ -145,7 +145,7 @@ watch(tipStyleClasses, setOffset)
         left: 100%;
         transform: translateY(-50%);
         .tooltip__tip-arrow {
-          border-color: transparent #ffffff transparent transparent;
+          border-color: transparent var(--color-white) transparent transparent;
           border-width: 6rem 6rem 6rem 0rem;
           left: -6rem;
         }
