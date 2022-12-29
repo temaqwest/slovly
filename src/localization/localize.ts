@@ -40,6 +40,7 @@ export function setLocale(
   locale: AvailableLocales = AvailableLocales.EN
 ): void {
   currentLocale = locale
+  localStorage.setItem('locale', locale)
 }
 
 export function getLocale(): string {
@@ -49,4 +50,21 @@ export function getLocale(): string {
 export function localize(localeStringKey: string): string {
   const [fileName, localeKey] = localeStringKey.split('.')
   return searchLocaleString(fileName, localeKey)
+}
+
+export function getBrowserLocale(): AvailableLocales {
+  let definedLanguage: AvailableLocales
+
+  if (localStorage.getItem('locale')) {
+    definedLanguage = localStorage.getItem('locale') as AvailableLocales
+    return definedLanguage
+  }
+
+  definedLanguage = Object.values(AvailableLocales).includes(
+    navigator.language as AvailableLocales
+  )
+    ? (navigator.language as AvailableLocales)
+    : AvailableLocales.EN
+
+  return definedLanguage
 }

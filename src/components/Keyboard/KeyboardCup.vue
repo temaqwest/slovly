@@ -79,10 +79,10 @@ withDefaults(defineProps<KeyboardCupProps>(), {
 
 @media (max-width: $mobile-m) {
   .key-cup {
-    width: 32px;
-    height: 40px;
-    font-size: 22px;
-    border-radius: 3px;
+    width: 32rem;
+    height: 40rem;
+    font-size: 22rem;
+    border-radius: 3rem;
     box-shadow: none;
   }
 }

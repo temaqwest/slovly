@@ -1,7 +1,6 @@
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { BoardPosition, LetterSpotStatus } from '@/assets/enums/Board'
-
-const LETTERS_PRESET = 'abcdefghijklmnopqrstuvwxyz'.split('')
+import { localize } from '@/localization/localize'
 
 type CursorDirection = -1 | 1
 
@@ -22,6 +21,8 @@ export function useGameGrid(config: GameGridConfig) {
   const gameIsOver = ref(false)
   const matchedWord = ref(false)
   const notMatched = ref(false)
+  const LETTERS_PRESET = localize('Keyboard.layout').split('')
+  const WORDS_PRESET: Array<string> = config.wordsPreset
 
   const isCursorOnStart = computed(() => currentPosition.value.cell === 0)
   const isCursorOnEnd = computed(
@@ -96,11 +97,11 @@ export function useGameGrid(config: GameGridConfig) {
   function handleWordAccept() {
     const rowWord = wordMatrix.value[currentPosition.value.row].join('')
 
-    checkForFullMatch(rowWord)
+    if (checkForFullMatch(rowWord)) return
 
     if (
       isCursorOnEnd.value &&
-      config.wordsPreset.includes(rowWord) &&
+      WORDS_PRESET.includes(rowWord) &&
       !alreadyGuessedWords.value.includes(rowWord)
     ) {
       if (!(currentPosition.value.row === config.size.maxRows - 1)) {
@@ -108,36 +109,45 @@ export function useGameGrid(config: GameGridConfig) {
         alreadyGuessedWords.value.push(rowWord)
         currentPosition.value.row += 1
         currentPosition.value.cell = 0
-        console.log('match word')
-        matchedWord.value = true
-        setTimeout(() => (matchedWord.value = false), 1000)
+        ifWordContainsNeededLetters()
       } else {
         checkIfWordContainsUsefulLetters(rowWord)
-        gameIsOver.value = true
-        console.log('Game Over')
+        ifWordFullMatched()
       }
+
+      return
     }
+
+    ifWordDoesNotExists()
   }
 
   function checkIfWordContainsUsefulLetters(word: string) {
     const destWord = config.word.split('')
     const srcWord = word.split('')
+    let isAnyMatches = false
 
     for (let i = 0; i < config.size.maxRows - 1; i++) {
       if (destWord[i] === srcWord[i]) {
+        isAnyMatches = true
         wordMatrixSpot.value[currentPosition.value.row][i].isCorrect = true
       } else if (destWord.includes(srcWord[i])) {
+        isAnyMatches = true
         wordMatrixSpot.value[currentPosition.value.row][i].isContains = true
       }
     }
+
+    return isAnyMatches
   }
 
-  function checkForFullMatch(word: string) {
+  function checkForFullMatch(word: string): boolean {
     if (config.word === word) {
       checkIfWordContainsUsefulLetters(word)
       gameIsOver.value = true
       console.log('FULL MATCH, GAME OVER')
+      return true
     }
+
+    return false
   }
 
   function buildGrid() {
@@ -155,12 +165,30 @@ export function useGameGrid(config: GameGridConfig) {
     }
   }
 
+  function ifWordDoesNotExists() {
+    notMatched.value = true
+    console.log('not exists')
+    setTimeout(() => (notMatched.value = false), 3000)
+  }
+
+  function ifWordContainsNeededLetters() {
+    matchedWord.value = true
+    console.log('matched')
+    setTimeout(() => (matchedWord.value = false), 3000)
+  }
+
+  function ifWordFullMatched() {
+    console.log('game over')
+    gameIsOver.value = true
+  }
+
   buildGrid()
 
   return {
     wordMatrix,
     gameIsOver,
     matchedWord,
+    notMatched,
     wordMatrixSpot,
     currentPosition,
     handleInput

@@ -19,33 +19,33 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
 import { useGameGrid } from '@/hooks/GameGrid'
-import { words } from '../../assets/mock/wordsPreset.js'
 
 interface GameBoardProps {
   pressedKey: { key: string }
+  wordsPreset: Array<string>
+  guessWord: string
 }
 
 const props = defineProps<GameBoardProps>()
-
 const boardRef = ref<HTMLDivElement>()
 
 const {
   wordMatrix,
-  handleInput,
-  currentPosition,
   wordMatrixSpot,
+  handleInput,
   gameIsOver,
-  matchedWord
+  matchedWord,
+  notMatched
 } = useGameGrid({
-  word: 'ligma',
+  word: props.guessWord,
   size: {
     maxRows: 6,
     maxCells: 5
   },
-  wordsPreset: words
+  wordsPreset: props.wordsPreset
 })
 
 watch(
@@ -101,7 +101,7 @@ watch(
       color: var(--black-color);
       font-size: 20rem;
       text-align: center;
-      padding: 8px 30px;
+      padding: 8rem 30rem;
       box-shadow: 0 3rem 6rem rgb(0 0 0 / 16%), 0 3rem 6rem rgb(0 0 0 / 23%);
       transition: transform $transition-delay-boring ease-in,
         box-shadow $transition-delay-boring ease-in;
@@ -112,7 +112,7 @@ watch(
     display: flex;
     align-items: center;
     gap: 5rem;
-    perspective: 600px;
+    perspective: 600rem;
   }
 
   &__cell {

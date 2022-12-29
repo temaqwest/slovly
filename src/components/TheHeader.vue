@@ -56,6 +56,7 @@
             v-bind="attrs"
             variant="clear"
             class="header__utils-button"
+            @click="isSettingsModalVisible = !isSettingsModalVisible"
           >
             <AppIcon class="header__utils-icon" name="settings" />
           </AppButton>
@@ -91,11 +92,18 @@
         </template>
       </AppTooltip>
     </div>
+    <!-- Modals -->
     <AppDialog
       :title="localize('Header.help')"
       v-model:show="isHelpModalVisible"
     >
       <HelpDialog />
+    </AppDialog>
+    <AppDialog
+      :title="localize('Header.settings')"
+      v-model:show="isSettingsModalVisible"
+    >
+      <SettingsDialog />
     </AppDialog>
   </header>
 </template>
@@ -104,16 +112,18 @@
 import AppIcon from '@/components/UI/AppIcon.vue'
 import AppDialog from '@/components/UI/AppDialog.vue'
 import AppButton from '@/components/UI/AppButton.vue'
+import HelpDialog from '@/components/CustomDialogly/HelpDialog.vue'
+import SettingsDialog from '@/components/CustomDialogly/SettingsDialog.vue'
+import AppTooltip from '@/components/UI/AppTooltip.vue'
+import { Theme } from '@/assets/enums/Theme'
 import { ref } from 'vue'
 import { localize } from '@/localization/localize'
-import HelpDialog from '@/components/CustomDialogly/HelpDialog.vue'
-import AppTooltip from '@/components/UI/AppTooltip.vue'
 import { useMainStore } from '@/store/mainStore'
-import { Theme } from '@/assets/enums/Theme'
 
 const mainStore = useMainStore()
 const isMenuVisible = ref<boolean>(false)
 const isHelpModalVisible = ref<boolean>(false)
+const isSettingsModalVisible = ref<boolean>(false)
 
 function toggleBurgerMenu() {
   isMenuVisible.value = !isMenuVisible.value

@@ -1,5 +1,11 @@
 <template>
-  <button class="app-button" :class="classes" :type="type">
+  <a
+    v-if="type === ButtonTypes.link"
+    :class="classes"
+    class="app-button--type-link"
+    ><slot></slot
+  ></a>
+  <button v-else class="app-button" :class="classes" :type="type">
     <slot></slot>
   </button>
 </template>
@@ -64,6 +70,15 @@ const classes = computed(() => {
   &--mode {
   }
   &--size {
+  }
+
+  &--type-link {
+    text-decoration: underline;
+    color: $gray-color-4;
+
+    &:hover {
+      color: var(--black-color);
+    }
   }
 }
 </style>

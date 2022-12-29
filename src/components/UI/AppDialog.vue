@@ -2,9 +2,9 @@
   <Teleport to="#dialogs" v-if="isTeleportContainerMounted">
     <Transition name="overlay-fade">
       <div class="dialog" v-show="show" :class="$attrs.class">
-        <div class="dialog__overlay" @click="closeDialogWindow">
+        <div class="dialog__overlay" @click.self="closeDialogWindow">
           <Transition name="toggle-dialog">
-            <div class="dialog__content" v-show="show" @click.stop>
+            <div class="dialog__content" v-show="show">
               <AppButton
                 variant="clear"
                 class="dialog__close-button"

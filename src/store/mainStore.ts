@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Theme } from '@/assets/enums/Theme'
+import { AvailableLocales } from '@/localization/localize'
 
 export const useMainStore = defineStore('mainStore', {
   state: () => ({

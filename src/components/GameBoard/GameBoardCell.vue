@@ -120,8 +120,8 @@ function onAnimationEnd() {
 
 @media (max-width: $mobile-m) {
   .game-cell {
-    width: 50px;
-    height: 50px;
+    width: 50rem;
+    height: 50rem;
   }
 }
 </style>

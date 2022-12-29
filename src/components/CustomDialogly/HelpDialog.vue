@@ -1,21 +1,13 @@
 <template>
   <div class="help-dialog__content">
     <div class="help-dialog__block">
-      <p class="help-dialog__text">
-        Guess the <strong>SLOVLY</strong> in 6 tries.
-      </p>
-      <p class="help-dialog__text">
-        Each guess must be a valid 5-letter word. Hit the enter button to
-        submit. Also you can use our virtual keyboard.
-      </p>
-      <p class="help-dialog__text">
-        After each guess, the color of the tiles will change to show how close
-        your guess was to the word.
-      </p>
+      <p class="help-dialog__text" v-html="localize('HelpDialog.fBlockOne')" />
+      <p class="help-dialog__text">{{ localize('HelpDialog.fBlockTwo') }}</p>
+      <p class="help-dialog__text">{{ localize('HelpDialog.fBlockThree') }}</p>
     </div>
     <div class="help-dialog__divider" />
     <div class="help-dialog__block">
-      <h2 class="help-dialog__title">Examples</h2>
+      <h2 class="help-dialog__title">{{ localize('HelpDialog.examples') }}</h2>
       <div class="help-dialog__word">
         <GameBoardCell
           class="help-dialog__word-cell"
@@ -26,10 +18,7 @@
           :letter="cell"
         />
       </div>
-      <p class="help-dialog__text">
-        The letter <strong>«L»</strong> is in the word and in incorrect spot.
-        That's why it is colored orange.
-      </p>
+      <p class="help-dialog__text" v-html="localize('HelpDialog.sBlockOne')" />
     </div>
     <div class="help-dialog__block">
       <div class="help-dialog__word">
@@ -42,10 +31,7 @@
           :letter="cell"
         />
       </div>
-      <p class="help-dialog__text">
-        The letter <strong>«M»</strong> is in the word and in correct spot.
-        That's why it is colored green.
-      </p>
+      <p class="help-dialog__text" v-html="localize('HelpDialog.sBlockTwo')" />
     </div>
     <div class="help-dialog__block">
       <div class="help-dialog__word">
@@ -58,14 +44,13 @@
           :letter="cell"
         />
       </div>
-      <p class="help-dialog__text">
-        There are no letters that are contained in the word
-      </p>
+      <p class="help-dialog__text">{{ localize('HelpDialog.sBlockThree') }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { localize } from '@/localization/localize'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
 // interface IProps {}
 // interface IEmits {}
