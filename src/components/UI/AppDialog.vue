@@ -65,6 +65,7 @@ onMounted(() => {
   right: 0;
   left: 0;
   backdrop-filter: blur(5rem);
+  z-index: 10;
 
   &__overlay {
     background-color: rgba(0, 0, 0, 0.4);

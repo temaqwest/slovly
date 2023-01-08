@@ -4,6 +4,13 @@ import { localize } from '@/localization/localize'
 
 type CursorDirection = -1 | 1
 
+export enum GameStates {
+  notMatched = 'notMatched',
+  matched = 'matched',
+  win = 'win',
+  gameOver = 'gameOver'
+}
+
 export interface GameGridConfig {
   word: string
   size: {
@@ -21,6 +28,8 @@ export function useGameGrid(config: GameGridConfig) {
   const gameIsOver = ref(false)
   const matchedWord = ref(false)
   const notMatched = ref(false)
+  const isMessageVisible = ref(false)
+  const message = ref('')
   const LETTERS_PRESET = localize('Keyboard.layout').split('')
   const WORDS_PRESET: Array<string> = config.wordsPreset
 
@@ -96,6 +105,9 @@ export function useGameGrid(config: GameGridConfig) {
 
   function handleWordAccept() {
     const rowWord = wordMatrix.value[currentPosition.value.row].join('')
+    const isRowFilled = rowWord.length === config.size.maxCells
+
+    if (!isRowFilled) return
 
     if (checkForFullMatch(rowWord)) return
 
@@ -143,6 +155,8 @@ export function useGameGrid(config: GameGridConfig) {
     if (config.word === word) {
       checkIfWordContainsUsefulLetters(word)
       gameIsOver.value = true
+      message.value = GameStates.win
+      isMessageVisible.value = true
       console.log('FULL MATCH, GAME OVER')
       return true
     }
@@ -166,19 +180,23 @@ export function useGameGrid(config: GameGridConfig) {
   }
 
   function ifWordDoesNotExists() {
-    notMatched.value = true
-    console.log('not exists')
-    setTimeout(() => (notMatched.value = false), 3000)
+    isMessageVisible.value = true
+    console.log('notMatched')
+    message.value = GameStates.notMatched
+    setTimeout(() => (isMessageVisible.value = false), 3000)
   }
 
   function ifWordContainsNeededLetters() {
-    matchedWord.value = true
+    isMessageVisible.value = true
     console.log('matched')
-    setTimeout(() => (matchedWord.value = false), 3000)
+    message.value = GameStates.matched
+    setTimeout(() => (isMessageVisible.value = false), 3000)
   }
 
   function ifWordFullMatched() {
     console.log('game over')
+    message.value = GameStates.gameOver
+    isMessageVisible.value = true
     gameIsOver.value = true
   }
 
@@ -191,6 +209,8 @@ export function useGameGrid(config: GameGridConfig) {
     notMatched,
     wordMatrixSpot,
     currentPosition,
+    isMessageVisible,
+    message,
     handleInput
   }
 }

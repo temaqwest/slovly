@@ -62,22 +62,22 @@
           </AppButton>
         </template>
       </AppTooltip>
-      <AppTooltip
-        :text="localize('Header.statistics')"
-        dir="bottom"
-        offset="10"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <AppButton
-            v-on="on"
-            v-bind="attrs"
-            variant="clear"
-            class="header__utils-button"
-          >
-            <AppIcon class="header__utils-icon" name="statistic" />
-          </AppButton>
-        </template>
-      </AppTooltip>
+      <!--      <AppTooltip-->
+      <!--        :text="localize('Header.statistics')"-->
+      <!--        dir="bottom"-->
+      <!--        offset="10"-->
+      <!--      >-->
+      <!--        <template v-slot:activator="{ on, attrs }">-->
+      <!--          <AppButton-->
+      <!--            v-on="on"-->
+      <!--            v-bind="attrs"-->
+      <!--            variant="clear"-->
+      <!--            class="header__utils-button"-->
+      <!--          >-->
+      <!--            <AppIcon class="header__utils-icon" name="statistic" />-->
+      <!--          </AppButton>-->
+      <!--        </template>-->
+      <!--      </AppTooltip>-->
       <AppTooltip :text="localize('Header.help')" dir="bottom" offset="10">
         <template v-slot:activator="{ on, attrs }">
           <AppButton
@@ -199,6 +199,10 @@ function toggleTheme() {
   }
 
   &__menu {
+    opacity: 0;
+    visibility: hidden;
+    user-select: none;
+    pointer-events: none;
     position: relative;
     justify-self: start;
   }

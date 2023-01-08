@@ -1,8 +1,9 @@
 export default {
   title: 'Settings',
   language: 'Language',
-  theme: 'Theme',
+  theme: 'Dark theme',
   questions: 'Questions?',
+  answers: 'Email me',
   feedback: 'Feedback',
   email: 'Email',
   faq: 'FAQ'

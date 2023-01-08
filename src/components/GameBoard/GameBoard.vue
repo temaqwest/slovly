@@ -1,4 +1,9 @@
 <template>
+  <MessageChip
+    v-bind="messageData"
+    :visible="isMessageVisible"
+    class="message-block--neon"
+  />
   <div ref="boardRef" class="board">
     <div
       class="board__row"
@@ -19,9 +24,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import GameBoardCell from '@/components/GameBoard/GameBoardCell.vue'
-import { useGameGrid } from '@/hooks/GameGrid'
+import { GameStates, useGameGrid } from '@/hooks/GameGrid'
+import MessageChip from '@/components/MessageChip/MessageChip.vue'
+import { localize } from '@/localization/localize'
 
 interface GameBoardProps {
   pressedKey: { key: string }
@@ -37,8 +44,8 @@ const {
   wordMatrixSpot,
   handleInput,
   gameIsOver,
-  matchedWord,
-  notMatched
+  message,
+  isMessageVisible
 } = useGameGrid({
   word: props.guessWord,
   size: {
@@ -54,6 +61,33 @@ watch(
     handleInput(props.pressedKey.key)
   }
 )
+
+const messageData = computed(() => {
+  const randomNumber = Math.ceil(Math.random() * 3)
+  console.log('randomNumber: ', randomNumber)
+
+  if (message.value === GameStates.matched) {
+    return {
+      icon: 'clap',
+      message: localize('GameWords.matched' + randomNumber)
+    }
+  } else if (message.value === GameStates.notMatched) {
+    return {
+      icon: 'confused',
+      message: localize('GameWords.notMatched' + randomNumber)
+    }
+  } else if (message.value === GameStates.win) {
+    return {
+      icon: 'party',
+      message: localize('GameWords.win' + randomNumber)
+    }
+  }
+
+  return {
+    icon: 'callme',
+    message: localize('GameWords.gameOver' + randomNumber)
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -122,6 +156,36 @@ watch(
 @media (max-width: $mobile-m) {
   .board {
     margin: 20rem auto 20rem auto;
+  }
+}
+
+.message-block--neon {
+  &:before {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-45deg, #ffeda0 0%, #ffa585 100%);
+    transform: translate3d(0px, 20px, 0) scale(0.95);
+    filter: blur(30px);
+    opacity: 0.7;
+    transition: opacity $transition-delay-boring;
+    border-radius: inherit;
+  }
+
+  &::after {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: inherit;
+    border-radius: inherit;
   }
 }
 </style>

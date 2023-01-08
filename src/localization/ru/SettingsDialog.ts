@@ -1,8 +1,9 @@
 export default {
   title: 'Настройки',
   language: 'Язык',
-  theme: 'Тема',
+  theme: 'Тёмная тема',
   questions: 'Вопросы?',
+  answers: 'Написать мне',
   feedback: 'Обратная связь',
   email: 'Эл. почта',
   faq: 'Часто задаваемые вопросы'

@@ -31,6 +31,7 @@ onMounted(async () => {
   dictionary.value = await getDictionaryBySelectedLanguage()
   wordToGuess.value = await getRandomWordFromDictionary()
   loaded.value = true
+  console.log(wordToGuess)
 })
 </script>
 

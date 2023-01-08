@@ -1,24 +1,33 @@
 <template>
   <label class="app-switch">
-    <input type="checkbox" class="app-switch__native" />
+    <input
+      type="checkbox"
+      class="app-switch__native"
+      :checked="modelValue"
+      @input="toggleData"
+    />
     <span class="app-switch__marker"></span>
   </label>
 </template>
 
 <script lang="ts" setup>
-import { computed, withDefaults } from 'vue'
-import {
-  ButtonModes,
-  ButtonSizes,
-  ButtonTypes,
-  ButtonVariants
-} from '@/assets/enums/Button'
+import { withDefaults } from 'vue'
 
 interface AppSwitchProps {
-  checked?: boolean
+  modelValue: boolean
+}
+
+interface AppSwitchEmits {
+  (e: 'update:modelValue', value: boolean): void
 }
 
 const props = withDefaults(defineProps<AppSwitchProps>(), {})
+const emit = defineEmits<AppSwitchEmits>()
+
+function toggleData(e: InputEvent) {
+  const isChecked = (e.target as HTMLInputElement).checked
+  emit('update:modelValue', isChecked)
+}
 </script>
 
 <style lang="scss" scoped>

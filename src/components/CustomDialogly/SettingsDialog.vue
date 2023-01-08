@@ -11,14 +11,16 @@
       <h2 class="settings-dialog__title">
         {{ localize('SettingsDialog.theme') }}
       </h2>
-      <AppSwitch />
+      <AppSwitch v-model="themeSwitcher" />
     </div>
     <div class="settings-dialog__divider" />
     <div class="settings-dialog__block">
       <h2 class="settings-dialog__title">
         {{ localize('SettingsDialog.questions') }}
       </h2>
-      <AppButton type="link" href="https://google.com">Ссылка</AppButton>
+      <AppButton type="link" href="mailto:taylorartem95@gmail.com">
+        {{ localize('SettingsDialog.answers') }}
+      </AppButton>
     </div>
   </div>
 </template>
@@ -30,13 +32,14 @@ import {
   localize,
   setLocale
 } from '@/localization/localize'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import AppSelect from '@/components/UI/AppSelect.vue'
 import AppSwitch from '@/components/UI/AppSwitch.vue'
 import AppButton from '@/components/UI/AppButton.vue'
 import { useRouter } from 'vue-router'
 import { SelectOption } from '@/assets/interfaces/BaseInterfaces'
 import { useMainStore } from '@/store/mainStore'
+import { Theme } from '@/assets/enums/Theme'
 
 const mainStore = useMainStore()
 const router = useRouter()
@@ -51,6 +54,18 @@ const langSelectValue = ref<SelectOption | null>(
     (i: any) => i.value === getBrowserLocale().slice(-2)
   )[0] ?? null
 )
+
+const themeSwitcher = ref<boolean>(mainStore.getCurrentTheme === Theme.black)
+
+function toggleTheme() {
+  const currentTheme = mainStore.getCurrentTheme
+
+  const newTheme = currentTheme === Theme.black ? Theme.light : Theme.black
+
+  mainStore.setCurrentTheme(newTheme)
+}
+
+watch(() => themeSwitcher.value, toggleTheme)
 
 watch(
   () => langSelectValue.value,
